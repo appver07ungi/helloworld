@@ -24,8 +24,6 @@ COPY html /var/www/html
 # httpd.conf
 COPY apache/httpd.conf /etc/httpd/conf/httpd.conf
 
-# httpd set
-RUN systemctl enable httpd
 
 # container port set
 EXPOSE 8080
