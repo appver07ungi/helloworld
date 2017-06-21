@@ -1,26 +1,42 @@
-# os centos6
-FROM centos:centos6
+#### docker build set ####
 
-# Dockerfile Make
-MAINTAINER oouchi
+# set base image
+FROM centos:centos6.6
 
-# Time_zone set
-RUN /bin/cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+# make image user
+MAINTAINER o-uchi
 
-# httpd/tomcat install
-RUN yum -y install httpd tomcat6 tomcat6-webapps tomcat6-admin-webapps tomcat6-docs-webapp
+# all packege update
+RUN yum update -y
 
-# apache to tomcat
-COPY apache/httpd.conf /etc/httpd/conf/httpd.conf
+# install Apache http server
+RUN yum install -y httpd && yum install -y tomcat6 tomcat6-webapps tomcat6-admin-webapps
+
+# hostname
+ENV HOSTNAME A-P_test 
+
+# Time_zone
+RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime 
 
 # html
 COPY html /var/www/html
 
-# start.sh
-COPY apatomstart.sh /
+# httpd.conf
+COPY apache/httpd.conf /etc/httpd/conf/httpd.conf
 
-# port
-EXPOSE 80
+# httpd set
+RUN systemctl enable httpd
 
-# apa-tom start shell
-CMD /apatomstart.sh
+# container port set
+EXPOSE 8080
+
+# apache tomcat start.sh
+RUN echo -e "service httpd start\nservice tomcat6 start\n/bin/bash" > /startService.sh
+
+#httpd,tomcat6 start.sh chmod
+RUN chmod o+x /startService.shi
+
+### docker run set ###
+
+# start http
+CMD /startService.sh
