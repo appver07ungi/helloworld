@@ -15,3 +15,12 @@ COPY apache/httpd.conf /etc/httpd/conf/httpd.conf
 
 # html
 COPY html /var/www/html
+
+# start.sh
+COPY apatomstart.sh /
+
+# port
+EXPOSE 80
+
+# apa-tom start shell
+CMD /apatomstart.sh
