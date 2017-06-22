@@ -25,6 +25,9 @@ COPY html /var/www/html
 # httpd.conf
 COPY apache/httpd.conf /etc/httpd/conf/httpd.conf
 
+# war add
+
+ADD warfile/*.war /usr/share/tomcat6/webapps/
 
 # container port set
 EXPOSE 80
