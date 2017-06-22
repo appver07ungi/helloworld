@@ -33,7 +33,7 @@ ADD warfile/*.war /usr/share/tomcat6/webapps/
 EXPOSE 80
 
 # apache tomcat start.sh
-RUN echo -e "#!/bin/bash\nservice tomcat6 start\nservice httpd start" > /startService.sh
+RUN echo -e "#!/bin/bash\nservice tomcat6 start\nservice httpd start\n/bin/bash" > /startService.sh
 
 #httpd,tomcat6 start.sh chmod
 RUN chmod o+x /startService.sh
@@ -41,4 +41,4 @@ RUN chmod o+x /startService.sh
 ### docker run set ###
 
 # start http
-CMD ["/startService.sh"]
+ENTRYPOINT  ["/startService.sh"] 
