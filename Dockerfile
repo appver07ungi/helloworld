@@ -10,10 +10,16 @@ MAINTAINER o-uchi
 RUN yum update -y
 
 # install Apache http server
-RUN yum install -y httpd && yum install -y tomcat6 tomcat6-webapps tomcat6-admin-webapps
+RUN yum install -y httpd && yum install -y tomcat6 tomcat6-webapps tomcat6-admin-webapps && yum install java-1.8.0-openjdk-devel
 
 # hostname
 ENV HOSTNAME A-P_test 
+
+# java api-jar
+RUN echo "export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk.x86_64" >> /root/.bash_profile
+
+# java env
+export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk.x86_64
 
 # Time_zone
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime 
@@ -26,15 +32,15 @@ COPY apache/httpd.conf /etc/httpd/conf/httpd.conf
 
 
 # container port set
-EXPOSE 8080
+EXPOSE 80
 
 # apache tomcat start.sh
 RUN echo -e "service httpd start\nservice tomcat6 start\n/bin/bash" > /startService.sh
 
 #httpd,tomcat6 start.sh chmod
-RUN chmod o+x /startService.shi
+RUN chmod o+x /startService.sh
 
 ### docker run set ###
 
 # start http
-CMD /startService.sh
+CMD sh /startService.sh
