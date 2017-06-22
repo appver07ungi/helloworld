@@ -1,3 +1,4 @@
+2017/06/22 oouchi image 7.1 relese
 2017/06/22 java env/port 80 set
 2017/06/21 Dockerfile renew
 2017/06/21 apa-tom start.sh & expose 80
