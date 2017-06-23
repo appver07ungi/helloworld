@@ -19,9 +19,6 @@ RUN echo "export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk.x86_64" >> /root/.bash
 # Time_zone
 RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime 
 
-# html
-COPY html /var/www/html
-
 # httpd.conf
 COPY apache/httpd.conf /etc/httpd/conf/httpd.conf
 
